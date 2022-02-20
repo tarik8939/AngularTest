@@ -1,0 +1,59 @@
+<ng-template #editModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit post</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <app-post-edit
+      [modal]="modal"
+      (editPostEvent)="editPost($event)"
+      [post]="selectedPost"
+    >
+    </app-post-edit>
+  </div>
+</ng-template>
+
+<ng-template #addNewModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Add new post</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <app-post-new
+      (newPostEvent)="addNew($event)"
+      [modal]="modal">
+    </app-post-new>
+  </div>
+</ng-template>
+
+
+<div class="container">
+  <button type="button" class="btn btn-success col-md-3" (click)="openNew(addNewModal)">New</button>
+  <div class="row">
+    <table class="table table-bordered col">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Text</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let x of postsService.posts; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>
+          {{ x.title }}
+        </td>
+        <td>
+          {{ x.text }}
+        </td>
+        <td>
+          <button type="button" class="btn btn-warning" (click)="openEdit(editModal, x.postId)">Edit</button>
+          <button type="button" class="btn btn-danger" (click)="delete(x.postId)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
