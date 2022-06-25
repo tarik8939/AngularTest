@@ -11,6 +11,7 @@ namespace AngularTest.API.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
+        // private readonly MyDbContext _context;
         private PostService _service;
 
         public PostController(PostService service)
